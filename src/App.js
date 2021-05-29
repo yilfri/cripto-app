@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import image from './cripto.jpg';
 import Form from './components/Form';
@@ -37,12 +37,20 @@ const Heading = styled.h1`
 `;
 
 function App() {
+	const [currency, setCurrency] = useState('');
+	const [cryptoCurrency, setCryptoCurrency] = useState('');
+
+	useEffect(() => {
+		if (currency === '') return;
+		console.log('Loading...');
+	}, [currency, cryptoCurrency]);
+
 	return (
 		<Contenedor>
 			<div>{<Image src={image} alt="Cryptocurrency" />}</div>
 			<div>
 				<Heading>Cotiza Criptomonedas al Instante</Heading>
-				<Form />
+				<Form setCurrency={setCurrency} setCryptoCurrency={setCryptoCurrency} />
 			</div>
 		</Contenedor>
 	);
