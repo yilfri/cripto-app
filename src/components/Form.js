@@ -4,6 +4,7 @@ import useCurrency from '../hooks/useCurrency';
 import useCrypto from '../hooks/useCrypto';
 import axios from 'axios';
 import Error from './Error';
+import PropTypes from 'prop-types';
 
 const Button = styled.input`
 	margin-top: 20px;
@@ -29,10 +30,10 @@ const Form = ({ setCurrency, setCryptoCurrency }) => {
 
 	const CURRENCYS = [
 		{ cod: 'USD', name: 'Dólar Americano' },
+		{ cod: 'VES', name: 'Bolívares Soberanos' },
 		{ cod: 'MXN', name: 'Peso Mexicano' },
 		{ cod: 'EUR', name: 'Euro' },
-		{ cod: 'GBP', name: 'Libra Esterlina' },
-		{ cod: 'VES', name: 'Bolívares' }
+		{ cod: 'GBP', name: 'Libra Esterlina' }
 	];
 
 	const [currency, SelectCurrency] = useCurrency('Selecciona tu Moneda', '', CURRENCYS);
@@ -74,6 +75,11 @@ const Form = ({ setCurrency, setCryptoCurrency }) => {
 			<Button type="submit" value="Calcular" />
 		</form>
 	);
+};
+
+Form.propTypes = {
+	setCurrency: PropTypes.func.isRequired,
+	setCryptoCurrency: PropTypes.func.isRequired
 };
 
 export default Form;

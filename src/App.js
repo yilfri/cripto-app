@@ -4,6 +4,7 @@ import image from './cripto.jpg';
 import Form from './components/Form';
 import axios from 'axios';
 import Result from './components/Result';
+import Spinner from './components/Spinner';
 
 const Contenedor = styled.div`
 	max-width: 900px;
@@ -42,6 +43,7 @@ function App() {
 	const [currency, setCurrency] = useState('');
 	const [cryptoCurrency, setCryptoCurrency] = useState('');
 	const [result, setResult] = useState({});
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getChangeCurrency = async () => {
@@ -51,11 +53,18 @@ function App() {
 
 			const result = await axios.get(url);
 
-			setResult(result.data.DISPLAY[cryptoCurrency][currency]);
+			setLoading(true);
+
+			setTimeout(() => {
+				setLoading(false);
+				setResult(result.data.DISPLAY[cryptoCurrency][currency]);
+			}, 3000);
 		};
 
 		getChangeCurrency();
 	}, [currency, cryptoCurrency]);
+
+	const component = loading ? <Spinner /> : <Result result={result} />;
 
 	return (
 		<Contenedor>
@@ -63,7 +72,7 @@ function App() {
 			<div>
 				<Heading>Cotiza Criptomonedas al Instante</Heading>
 				<Form setCurrency={setCurrency} setCryptoCurrency={setCryptoCurrency} />
-				<Result result={result} />
+				{component}
 			</div>
 		</Contenedor>
 	);

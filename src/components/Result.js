@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const ResultDiv = styled.div`
 	color: #fff;
@@ -44,6 +45,10 @@ const Result = ({ result }) => {
 			</Info>
 		</ResultDiv>
 	);
+};
+
+Result.propTypes = {
+	result: PropTypes.object.isRequired
 };
 
 export default Result;
