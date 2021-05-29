@@ -29,11 +29,11 @@ const useCrypto = (label, initialState, options) => {
 			<Label>{label}</Label>
 			<SelectContainer onChange={(e) => setState(e.target.value)} value={state}>
 				<option value="">- Seleccione -</option>
-				{/* {options.map((option) => (
-					<option key={option.cod} value={option.cod}>
-						{option.name}
+				{options.map((option) => (
+					<option key={option.CoinInfo.Id} value={option.CoinInfo.Name}>
+						{option.CoinInfo.FullName}
 					</option>
-				))} */}
+				))}
 			</SelectContainer>
 		</>
 	);

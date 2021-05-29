@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import useCurrency from '../hooks/useCurrency';
 import useCrypto from '../hooks/useCrypto';
+import axios from 'axios';
 
 const Button = styled.input`
 	margin-top: 20px;
@@ -22,6 +23,9 @@ const Button = styled.input`
 `;
 
 const Form = () => {
+	const [listCrypto, setlistCrypto] = useState([]);
+	const [error, setError] = useState(false);
+
 	const CURRENCYS = [
 		{ cod: 'USD', name: 'Dólar Americano' },
 		{ cod: 'MXN', name: 'Peso Mexicano' },
@@ -31,10 +35,34 @@ const Form = () => {
 
 	const [currency, SelectCurrency] = useCurrency('Selecciona tu Moneda', '', CURRENCYS);
 
-	const [cryptocurrency, CryptoCurrency] = useCrypto('Seleeciona tu Criptomoneda', '');
+	const [cryptocurrency, CryptoCurrency] = useCrypto('Seleeciona tu Criptomoneda', '', listCrypto);
+
+	useEffect(() => {
+		const getApi = async () => {
+			const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
+
+			const result = await axios.get(url);
+			setlistCrypto(result.data.Data);
+		};
+
+		getApi();
+	}, []);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if (currency === '' || cryptocurrency === '') {
+			setError(true);
+			return;
+		}
+
+		setError(false);
+	};
 
 	return (
-		<form>
+		<form onSubmit={handleSubmit}>
+			{error ? <p>Error</p> : null}
+
 			<SelectCurrency />
 
 			<CryptoCurrency />
