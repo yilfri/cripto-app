@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import useCurrency from '../hooks/useCurrency';
 import useCrypto from '../hooks/useCrypto';
 import axios from 'axios';
+import Error from './Error';
 
 const Button = styled.input`
 	margin-top: 20px;
@@ -61,7 +62,7 @@ const Form = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			{error ? <p>Error</p> : null}
+			{error ? <Error message={'Todos los campos son obligatorios'} /> : null}
 
 			<SelectCurrency />
 
