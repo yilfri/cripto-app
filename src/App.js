@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import image from './cripto.jpg';
 import Form from './components/Form';
+import axios from 'axios';
 
 const Contenedor = styled.div`
 	max-width: 900px;
@@ -41,8 +42,17 @@ function App() {
 	const [cryptoCurrency, setCryptoCurrency] = useState('');
 
 	useEffect(() => {
-		if (currency === '') return;
-		console.log('Loading...');
+		const getChangeCurrency = async () => {
+			if (currency === '') return;
+
+			const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoCurrency}&tsyms=${currency}`;
+
+			const result = await axios.get(url);
+
+			console.log(result.data.DISPLAY[cryptoCurrency][currency]);
+		};
+
+		getChangeCurrency();
 	}, [currency, cryptoCurrency]);
 
 	return (
