@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import image from './cripto.jpg';
 import Form from './components/Form';
 import axios from 'axios';
+import Result from './components/Result';
 
 const Contenedor = styled.div`
 	max-width: 900px;
@@ -40,6 +41,7 @@ const Heading = styled.h1`
 function App() {
 	const [currency, setCurrency] = useState('');
 	const [cryptoCurrency, setCryptoCurrency] = useState('');
+	const [result, setResult] = useState({});
 
 	useEffect(() => {
 		const getChangeCurrency = async () => {
@@ -49,7 +51,7 @@ function App() {
 
 			const result = await axios.get(url);
 
-			console.log(result.data.DISPLAY[cryptoCurrency][currency]);
+			setResult(result.data.DISPLAY[cryptoCurrency][currency]);
 		};
 
 		getChangeCurrency();
@@ -61,6 +63,7 @@ function App() {
 			<div>
 				<Heading>Cotiza Criptomonedas al Instante</Heading>
 				<Form setCurrency={setCurrency} setCryptoCurrency={setCryptoCurrency} />
+				<Result result={result} />
 			</div>
 		</Contenedor>
 	);

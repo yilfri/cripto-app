@@ -31,7 +31,8 @@ const Form = ({ setCurrency, setCryptoCurrency }) => {
 		{ cod: 'USD', name: 'Dólar Americano' },
 		{ cod: 'MXN', name: 'Peso Mexicano' },
 		{ cod: 'EUR', name: 'Euro' },
-		{ cod: 'GBP', name: 'Libra Esterlina' }
+		{ cod: 'GBP', name: 'Libra Esterlina' },
+		{ cod: 'VES', name: 'Bolívares' }
 	];
 
 	const [currency, SelectCurrency] = useCurrency('Selecciona tu Moneda', '', CURRENCYS);
