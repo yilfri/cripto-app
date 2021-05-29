@@ -28,11 +28,7 @@ const Form = () => {
 		{ cod: 'GBP', name: 'Libra Esterlina' }
 	];
 
-	const [currency, SelectCurrency, setCurrency] = useCurrency(
-		'Selecciona tu Moneda',
-		'',
-		CURRENCYS
-	);
+	const [currency, SelectCurrency] = useCurrency('Selecciona tu Moneda', '', CURRENCYS);
 
 	return (
 		<form>
